@@ -1,129 +1,156 @@
 <html lang="ur" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Earning & Job Portal - Pro Feed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Global Earning & Job Portal - App</title>
     <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #0f172a;
             --accent: #10b981;
-            --bg: #f8fafc;
+            --bg: #f1f5f9;
             --card: #ffffff;
-            --text: #334155;
+            --text: #1e293b;
             --border: #e2e8f0;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 70px; padding-top: 60px; }
         
-        header { background: var(--primary); color: #fff; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .logo { cursor: pointer; font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 5px; display: inline-block; user-select: none; }
-        header p { font-size: 13px; color: #94a3b8; }
+        /* App Top Bar (Navbar) */
+        .app-header { position: fixed; top: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        .app-logo { cursor: pointer; font-size: 18px; font-weight: 700; color: var(--accent); user-select: none; display: flex; align-items: center; gap: 8px; }
+        .app-user-status { font-size: 11px; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 12px; color: #cbd5e1; }
 
-        .container { max-width: 650px; margin: 20px auto; padding: 0 15px; }
+        .container { max-width: 500px; margin: 0 auto; padding: 12px; }
         .hidden { display: none !important; }
 
-        /* Auth Box */
-        .auth-card, .admin-card, .post-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        /* App Cards */
+        .app-card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid var(--border); }
         .admin-card { border: 2px dashed var(--accent); }
-        
-        input, select, textarea { width: 100%; padding: 10px 14px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-        textarea { resize: vertical; height: 80px; }
 
-        .btn { background: var(--accent); color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.9; }
+        input, select, textarea { width: 100%; padding: 10px 14px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; background: #f8fafc; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent); background: #fff; }
+        textarea { resize: none; height: 75px; }
+
+        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
+        .btn:active { transform: scale(0.98); }
         .btn-danger { background: #ef4444; }
 
-        /* Categories Filter */
-        .filter-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; }
-        .filter-btn { background: #e2e8f0; border: none; padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; white-space: nowrap; font-weight: 600; color: #475569; }
-        .filter-btn.active { background: var(--accent); color: white; }
+        /* Categories App Pills */
+        .app-filters { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px 0; scrollbar-width: none; }
+        .app-filters::-webkit-scrollbar { display: none; }
+        .pill-btn { background: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; white-space: nowrap; font-weight: 500; color: #64748b; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .pill-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Post Styling */
-        .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .post-title { font-size: 16px; font-weight: 700; color: var(--primary); }
-        .badge { background: #dbeafe; color: #2563eb; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
-        .post-desc { font-size: 14px; color: #475569; margin-bottom: 12px; white-space: pre-line; }
+        /* Post Item Layout */
+        .post-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+        .post-heading { font-size: 15px; font-weight: 700; color: var(--primary); line-height: 1.3; }
+        .app-badge { background: #e0f2fe; color: #0284c7; font-size: 9px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
+        .post-time { font-size: 10px; color: #94a3b8; margin-bottom: 8px; }
+        .post-body { font-size: 13px; color: #475569; margin-bottom: 12px; line-height: 1.5; white-space: pre-line; }
         
-        .post-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
-        .action-btn { background: none; border: none; cursor: pointer; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: #64748b; }
-        .action-btn:hover { color: var(--accent); }
-        .post-link-btn { background: #eff6ff; color: #2563eb; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 600; }
+        .post-action-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 8px; }
+        .app-action-btn { background: #f8fafc; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: #475569; }
+        .app-action-btn:hover { background: #f1f5f9; }
+        .join-btn { background: #eff6ff; color: #2563eb; border-color: #dbeafe; }
 
-        .auth-toggle { text-align: center; margin-top: 10px; font-size: 13px; color: #64748b; cursor: pointer; }
-        .auth-toggle span { color: var(--accent); font-weight: 600; }
+        /* Bottom App Navigation Bar */
+        .app-bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
+        .nav-item { text-align: center; color: #64748b; font-size: 10px; cursor: pointer; background: none; border: none; flex: 1; font-weight: 500; }
+        .nav-item i { font-size: 16px; display: block; margin-bottom: 2px; }
+        .nav-item.active { color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <header>
-        <!-- Secret Trigger on Logo (5 taps) -->
-        <div class="logo" onclick="handleLogoTap()"><i class="fa-solid fa-globe"></i> Global Earning & Job Portal</div>
-        <p>Your Trusted Gateway to Online Work & Real-Time Financial Opportunities</p>
+    <!-- Top App Bar -->
+    <header class="app-header">
+        <div class="app-logo" onclick="handleLogoTap()">
+            <i class="fa-solid fa-bolt" style="color: var(--accent);"></i> Global Portal
+        </div>
+        <div id="headerStatus" class="app-user-status">Guest Mode</div>
     </header>
 
     <div class="container">
         
-        <!-- Auth Section -->
-        <div id="authCard" class="auth-card">
-            <h3 id="authTitle" style="margin-bottom: 15px; color: var(--primary);">Login to Portal</h3>
-            <input type="email" id="authEmail" placeholder="Enter Email">
-            <input type="password" id="authPassword" placeholder="Enter Password">
-            <button class="btn" id="authSubmitBtn" onclick="submitAuth()">Login</button>
-            <div class="auth-toggle" onclick="toggleAuthMode()">Don't have an account? <span>Sign Up</span></div>
+        <!-- Tab 1: Home Feed View -->
+        <div id="tabHome">
+            <!-- Filter Pills -->
+            <div class="app-filters">
+                <button class="pill-btn active" onclick="filterPosts('All', this)">All Feeds</button>
+                <button class="pill-btn" onclick="filterPosts('Free Earning', this)">Free Earning</button>
+                <button class="pill-btn" onclick="filterPosts('Investment', this)">Investment</button>
+                <button class="pill-btn" onclick="filterPosts('Apps & Games', this)">Apps & Games</button>
+                <button class="pill-btn" onclick="filterPosts('Social Media Tasks', this)">Social Media Tasks</button>
+            </div>
+
+            <div id="feedContainer">
+                <div style="text-align: center; color: #94a3b8; padding: 40px; font-size: 13px;">Loading live updates...</div>
+            </div>
         </div>
 
-        <!-- Logged In User Info Bar -->
-        <div id="userInfoBar" class="hidden" style="display:none; justify-content:space-between; align-items:center; background:#fff; padding:10px 15px; border-radius:8px; margin-bottom:20px; border:1px solid var(--border);">
-            <span id="userEmailDisplay" style="font-size:13px; font-weight:600;"></span>
-            <button class="btn" style="width:auto; padding:5px 10px; font-size:11px; background:#ef4444;" onclick="logoutUser()">Logout</button>
+        <!-- Tab 2: Account / Auth View -->
+        <div id="tabAccount" class="hidden">
+            <div class="app-card">
+                <h3 id="authTitle" style="font-size: 16px; margin-bottom: 12px; color: var(--primary);">Account Login</h3>
+                <input type="email" id="authEmail" placeholder="Email Address">
+                <input type="password" id="authPassword" placeholder="Password">
+                <button class="btn" id="authSubmitBtn" onclick="submitAuth()">Login</button>
+                <div style="text-align: center; margin-top: 10px; font-size: 12px; color: #64748b; cursor: pointer;" onclick="toggleAuthMode()">
+                    Don't have an account? <span style="color: var(--accent); font-weight: 600;">Sign Up</span>
+                </div>
+            </div>
+
+            <div id="userProfileBox" class="app-card hidden" style="text-align: center;">
+                <div style="font-size: 35px; color: var(--accent); margin-bottom: 8px;"><i class="fa-solid fa-circle-user"></i></div>
+                <div id="profileEmail" style="font-size: 13px; font-weight: 600; margin-bottom: 15px;"></div>
+                <button class="btn btn-danger" onclick="logoutUser()">Logout Session</button>
+            </div>
         </div>
 
-        <!-- Eagle Eye Admin Panel (Hidden by default) -->
-        <div id="adminPanel" class="admin-card hidden">
-            <h2><i class="fa-solid fa-shield-halved" style="color: var(--accent);"></i> Eagle Eye Admin Panel</h2>
-            <input type="text" id="postTitleInput" placeholder="Post Title (e.g. Vestify Pro Bonus)">
-            <select id="postCategory">
-                <option value="Free Earning">Free Earning</option>
-                <option value="Investment">Investment</option>
-                <option value="Apps & Games">Apps & Games</option>
-                <option value="Social Media Tasks">Social Media Tasks</option>
-            </select>
-            <textarea id="postDescInput" placeholder="Write description, guidelines or rules..."></textarea>
-            <input type="text" id="postUrlInput" placeholder="Target Joining Link (https://...)">
-            <button class="btn" onclick="uploadPost()"><i class="fa-solid fa-paper-plane"></i> Publish Post Live</button>
-            
-            <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
-            <h4 style="font-size:14px; margin-bottom:10px;">Manage Existing Posts (Delete)</h4>
-            <div id="adminDeleteList" style="max-height: 150px; overflow-y: auto;"></div>
-        </div>
-
-        <!-- Filter Buttons -->
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterPosts('All', this)">All Updates</button>
-            <button class="filter-btn" onclick="filterPosts('Free Earning', this)">Free Earning</button>
-            <button class="filter-btn" onclick="filterPosts('Investment', this)">Investment</button>
-            <button class="filter-btn" onclick="filterPosts('Apps & Games', this)">Apps & Games</button>
-            <button class="filter-btn" onclick="filterPosts('Social Media Tasks', this)">Social Media Tasks</button>
-        </div>
-
-        <!-- Live Feed Container -->
-        <div id="feedContainer">
-            <div style="text-align: center; color: #64748b; padding: 30px;">Loading live posts...</div>
+        <!-- Tab 3: Eagle Eye Admin Panel (Hidden until 5 taps on logo + 5426) -->
+        <div id="tabAdmin" class="hidden">
+            <div class="app-card admin-card">
+                <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--primary); display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--accent);"></i> Eagle Eye Admin Panel
+                </h3>
+                <input type="text" id="postTitleInput" placeholder="Post Title">
+                <select id="postCategory">
+                    <option value="Free Earning">Free Earning</option>
+                    <option value="Investment">Investment</option>
+                    <option value="Apps & Games">Apps & Games</option>
+                    <option value="Social Media Tasks">Social Media Tasks</option>
+                </select>
+                <textarea id="postDescInput" placeholder="Write description & instructions..."></textarea>
+                <input type="text" id="postUrlInput" placeholder="Target Joining Link (https://...)">
+                <button class="btn" onclick="uploadPost()"><i class="fa-solid fa-paper-plane"></i> Publish Live Post</button>
+                
+                <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
+                <h4 style="font-size: 13px; margin-bottom: 8px;">Active Posts Control</h4>
+                <div id="adminDeleteList" style="max-height: 180px; overflow-y: auto;"></div>
+            </div>
         </div>
 
     </div>
 
-    <!-- Firebase SDK Scripts -->
+    <!-- Bottom App Navigation Bar -->
+    <nav class="app-bottom-nav">
+        <button class="nav-item active" onclick="switchTab('Home', this)">
+            <i class="fa-solid fa-house"></i>Home
+        </button>
+        <button class="nav-item" onclick="switchTab('Account', this)">
+            <i class="fa-solid fa-user"></i>Account
+        </button>
+    </nav>
+
+    <!-- Firebase Script SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, push, set, remove, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Apna Firebase Configuration yahan dalein
         const firebaseConfig = {
             apiKey: "AIzaSyBe5Q5jXpx3UvrHC9WOky9UWeDnP9SPfZI",
             authDomain: "verbose-6c008.firebaseapp.com",
@@ -142,66 +169,84 @@
         let allPostsData = [];
         let currentFilter = 'All';
 
-        // --- Auth Mode Toggle ---
-        window.toggleAuthMode = () => {
-            isSignUpMode = !isSignUpMode;
-            document.getElementById('authTitle').innerText = isSignUpMode ? "Create an Account" : "Login to Portal";
-            document.getElementById('authSubmitBtn').innerText = isSignUpMode ? "Sign Up" : "Login";
+        // --- App Tab Switcher ---
+        window.switchTab = (tabName, btnElement) => {
+            document.getElementById('tabHome').classList.add('hidden');
+            document.getElementById('tabAccount').classList.add('hidden');
+            document.getElementById('tabAdmin').classList.add('hidden');
+
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            if(tabName === 'Home') document.getElementById('tabHome').classList.remove('hidden');
+            if(tabName === 'Account') document.getElementById('tabAccount').classList.remove('hidden');
+            if(tabName === 'Admin') document.getElementById('tabAdmin').classList.remove('hidden');
         };
 
-        // --- Auth Submission ---
-        window.submitAuth = () => {
-            const email = document.getElementById('authEmail').value;
-            const pass = document.getElementById('authPassword').value;
-            if(!email || !pass) { alert("Please fill email and password sweetie!"); return; }
-
-            if(isSignUpMode) {
-                createUserWithEmailAndPassword(auth, email, pass)
-                    .then(() => alert("Account created successfully!"))
-                    .catch(e => alert(e.message));
-            } else {
-                signInWithEmailAndPassword(auth, email, pass)
-                    .then(() => alert("Logged in successfully!"))
-                    .catch(e => alert(e.message));
-            }
-        };
-
-        window.logoutUser = () => {
-            signOut(auth).then(() => alert("Logged out!"));
-        };
-
-        // Track Auth State
-        onAuthStateChanged(auth, (user) => {
-            const authCard = document.getElementById('authCard');
-            const userInfoBar = document.getElementById('userInfoBar');
-            if (user) {
-                authCard.classList.add('hidden');
-                userInfoBar.style.display = 'flex';
-                document.getElementById('userEmailDisplay').innerText = "Logged in as: " + user.email;
-            } else {
-                authCard.classList.remove('hidden');
-                userInfoBar.style.display = 'none';
-                document.getElementById('adminPanel').classList.add('hidden');
-            }
-        });
-
-        // --- Secret Eagle Eye Admin Trigger (5 Taps & Code 5426) ---
+        // --- Secret Eagle Eye Trigger on Logo (5 Taps + Code 5426) ---
         let tapCount = 0;
         window.handleLogoTap = () => {
             tapCount++;
             if (tapCount === 5) {
                 let code = prompt("Enter Eagle Eye Secret Code:");
                 if (code === "5426") {
-                    document.getElementById('adminPanel').classList.remove('hidden');
-                    alert("Eagle Eye Admin Panel Activated!");
+                    // Add Admin button dynamically to bottom nav if unlocked
+                    const navBar = document.querySelector('.app-bottom-nav');
+                    if(!document.getElementById('adminNavBtn')) {
+                        navBar.innerHTML += `
+                            <button id="adminNavBtn" class="nav-item" onclick="switchTab('Admin', this)">
+                                <i class="fa-solid fa-shield-halved"></i>Admin
+                            </button>
+                        `;
+                    }
+                    switchTab('Admin', document.getElementById('adminNavBtn'));
+                    alert("Eagle Eye App Mode Activated!");
                 } else {
-                    alert("Incorrect secret code!");
+                    alert("Wrong Code!");
                 }
                 tapCount = 0;
             }
         };
 
-        // --- Upload Post (Admin) ---
+        // --- Auth System ---
+        window.toggleAuthMode = () => {
+            isSignUpMode = !isSignUpMode;
+            document.getElementById('authTitle').innerText = isSignUpMode ? "Create New Account" : "Account Login";
+            document.getElementById('authSubmitBtn').innerText = isSignUpMode ? "Sign Up" : "Login";
+        };
+
+        window.submitAuth = () => {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            if(!email || !pass) { alert("Enter email and password sweetie!"); return; }
+
+            if(isSignUpMode) {
+                createUserWithEmailAndPassword(auth, email, pass).then(() => alert("Account created!")).catch(e => alert(e.message));
+            } else {
+                signInWithEmailAndPassword(auth, email, pass).then(() => alert("Logged in!")).catch(e => alert(e.message));
+            }
+        };
+
+        window.logoutUser = () => { signOut(auth).then(() => alert("Logged out!")); };
+
+        onAuthStateChanged(auth, (user) => {
+            const status = document.getElementById('headerStatus');
+            const profileBox = document.getElementById('userProfileBox');
+            const authCard = document.querySelector('#tabAccount .app-card:first-child');
+            
+            if (user) {
+                status.innerText = "Online";
+                authCard.classList.add('hidden');
+                profileBox.classList.remove('hidden');
+                document.getElementById('profileEmail').innerText = user.email;
+            } else {
+                status.innerText = "Guest Mode";
+                authCard.classList.remove('hidden');
+                profileBox.classList.add('hidden');
+            }
+        });
+
+        // --- Post System ---
         window.uploadPost = () => {
             const title = document.getElementById('postTitleInput').value.trim();
             const category = document.getElementById('postCategory').value;
@@ -210,58 +255,39 @@
 
             if(!title || !url) { alert("Title and Link are required sweetie!"); return; }
 
-            const newRef = push(ref(db, 'posts'));
-            set(newRef, {
-                title, category, description, url,
-                likes: 0,
-                timestamp: Date.now()
-            }).then(() => {
-                document.getElementById('postTitleInput').value = '';
-                document.getElementById('postDescInput').value = '';
-                document.getElementById('postUrlInput').value = '';
-                alert("Post published live!");
-            }).catch(e => alert(e.message));
+            push(ref(db, 'posts'), { title, category, description, url, likes: 0, timestamp: Date.now() })
+                .then(() => {
+                    document.getElementById('postTitleInput').value = '';
+                    document.getElementById('postDescInput').value = '';
+                    document.getElementById('postUrlInput').value = '';
+                    alert("Posted live successfully!");
+                    switchTab('Home', document.querySelector('.app-bottom-nav .nav-item'));
+                });
         };
 
-        // --- Delete Post (Admin) ---
-        window.deletePost = (id) => {
-            if(confirm("Are you sure you want to delete this post?")) {
-                remove(ref(db, 'posts/' + id));
-            }
-        };
+        window.deletePost = (id) => { if(confirm("Delete this post?")) remove(ref(db, 'posts/' + id)); };
+        window.likePost = (id, likes) => update(ref(db, 'posts/' + id), { likes: (likes || 0) + 1 });
+        window.copyPostLink = (url) => { navigator.clipboard.writeText(url); alert("Link copied to clipboard!"); };
 
-        // --- Like System ---
-        window.likePost = (id, currentLikes) => {
-            update(ref(db, 'posts/' + id), { likes: (currentLikes || 0) + 1 });
-        };
-
-        // --- Copy Link System ---
-        window.copyPostLink = (url) => {
-            navigator.clipboard.writeText(url);
-            alert("Link copied to clipboard! Share it with friends sweetie.");
-        };
-
-        // --- Filter System ---
-        window.filterPosts = (category, btnElement) => {
-            currentFilter = category;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
+        window.filterPosts = (cat, btn) => {
+            currentFilter = cat;
+            document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             renderFeed();
         };
 
-        // --- Realtime Data Fetching ---
+        // --- Realtime Sync ---
         onValue(ref(db, 'posts'), (snapshot) => {
             const data = snapshot.val();
             allPostsData = [];
-            const adminDeleteList = document.getElementById('adminDeleteList');
-            adminDeleteList.innerHTML = '';
+            const deleteList = document.getElementById('adminDeleteList');
+            deleteList.innerHTML = '';
 
-            if (data) {
+            if(data) {
                 Object.keys(data).forEach(key => {
                     allPostsData.push({ id: key, ...data[key] });
-                    // Populate Admin Delete panel list
-                    adminDeleteList.innerHTML += `
-                        <div style="display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid #f1f5f9; font-size:12px;">
+                    deleteList.innerHTML += `
+                        <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:11px;">
                             <span>${escapeHtml(data[key].title)}</span>
                             <button class="btn btn-danger" style="width:auto; padding:2px 8px; font-size:10px;" onclick="deletePost('${key}')">Delete</button>
                         </div>
@@ -271,51 +297,44 @@
             renderFeed();
         });
 
-        // --- Render Feed Function ---
         function renderFeed() {
-            const feedContainer = document.getElementById('feedContainer');
-            feedContainer.innerHTML = '';
-
-            let filtered = allPostsData;
-            if(currentFilter !== 'All') {
-                filtered = allPostsData.filter(p => p.category === currentFilter);
-            }
-
+            const container = document.getElementById('feedContainer');
+            container.innerHTML = '';
+            let filtered = currentFilter === 'All' ? allPostsData : allPostsData.filter(p => p.category === currentFilter);
             filtered.sort((a, b) => b.timestamp - a.timestamp);
 
             if(filtered.length === 0) {
-                feedContainer.innerHTML = '<div style="text-align: center; color: #64748b; padding: 40px; background: #fff; border-radius: 12px; border:1px solid var(--border);">No updates found in this category yet!</div>';
+                container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 40px; font-size: 13px;">No updates found!</div>';
                 return;
             }
 
             filtered.forEach(post => {
-                let dateStr = new Date(post.timestamp).toLocaleDateString() + ' ' + new Date(post.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                let postHTML = `
-                    <div class="post-card">
-                        <div class="post-header">
-                            <div class="post-title">${escapeHtml(post.title)}</div>
-                            <span class="badge">${escapeHtml(post.category || 'General')}</span>
+                let timeStr = new Date(post.timestamp).toLocaleDateString() + ' ' + new Date(post.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                container.innerHTML += `
+                    <div class="app-card">
+                        <div class="post-top">
+                            <div class="post-heading">${escapeHtml(post.title)}</div>
+                            <span class="app-badge">${escapeHtml(post.category || 'General')}</span>
                         </div>
-                        <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">${dateStr}</div>
-                        <div class="post-desc">${escapeHtml(post.description)}</div>
+                        <div class="post-time">${timeStr}</div>
+                        <div class="post-body">${escapeHtml(post.description)}</div>
                         
-                        <div style="margin-bottom: 12px;">
-                            <a href="${escapeHtml(post.url)}" target="_blank" class="post-link-btn">
-                                <i class="fa-solid fa-external-link-alt"></i> Visit Link / Join Now
+                        <div style="margin-bottom: 10px;">
+                            <a href="${escapeHtml(post.url)}" target="_blank" class="app-action-btn join-btn" style="text-decoration:none; display:inline-flex;">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Link / Join Now
                             </a>
                         </div>
 
-                        <div class="post-footer">
-                            <button class="action-btn" onclick="likePost('${post.id}', ${post.likes || 0})">
-                                <i class="fa-solid fa-heart" style="color: #ef4444;"></i> Like (${post.likes || 0})
+                        <div class="post-action-bar">
+                            <button class="app-action-btn" onclick="likePost('${post.id}', ${post.likes || 0})">
+                                <i class="fa-solid fa-heart" style="color: #ef4444;"></i> (${post.likes || 0})
                             </button>
-                            <button class="action-btn" onclick="copyPostLink('${escapeHtml(post.url)}')">
+                            <button class="app-action-btn" onclick="copyPostLink('${escapeHtml(post.url)}')">
                                 <i class="fa-solid fa-copy"></i> Copy Link
                             </button>
                         </div>
                     </div>
                 `;
-                feedContainer.innerHTML += postHTML;
             });
         }
 
