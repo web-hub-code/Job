@@ -18,7 +18,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg); color: var(--text); padding-bottom: 70px; padding-top: 60px; }
         
-        /* App Top Bar (Navbar) */
+        /* App Top Bar */
         .app-header { position: fixed; top: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
         .app-logo { cursor: pointer; font-size: 18px; font-weight: 700; color: var(--accent); user-select: none; display: flex; align-items: center; gap: 8px; }
         .app-user-status { font-size: 11px; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 12px; color: #cbd5e1; }
@@ -49,12 +49,19 @@
         .post-heading { font-size: 15px; font-weight: 700; color: var(--primary); line-height: 1.3; }
         .app-badge { background: #e0f2fe; color: #0284c7; font-size: 9px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
         .post-time { font-size: 10px; color: #94a3b8; margin-bottom: 8px; }
-        .post-body { font-size: 13px; color: #475569; margin-bottom: 12px; line-height: 1.5; white-space: pre-line; }
+        .post-body { font-size: 13px; color: #475569; margin-bottom: 10px; line-height: 1.5; white-space: pre-line; }
+        .post-img { width: 100%; border-radius: 10px; max-height: 250px; object-fit: cover; margin-bottom: 12px; border: 1px solid var(--border); }
         
         .post-action-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 8px; }
         .app-action-btn { background: #f8fafc; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: #475569; }
         .app-action-btn:hover { background: #f1f5f9; }
         .join-btn { background: #eff6ff; color: #2563eb; border-color: #dbeafe; }
+
+        /* Auto-Close Ad Overlay Popup */
+        .ad-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .ad-modal { background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 20px; text-align: center; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .ad-timer { position: absolute; top: 12px; right: 15px; background: #fee2e2; color: #dc2626; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+        .ad-content-img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin: 10px 0; }
 
         /* Bottom App Navigation Bar */
         .app-bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
@@ -64,6 +71,17 @@
     </style>
 </head>
 <body>
+
+    <!-- 5-Second Auto-Close Ad Popup -->
+    <div id="adPopup" class="ad-overlay hidden">
+        <div class="ad-modal">
+            <div id="adTimerBadge" class="ad-timer">Closing in 5s</div>
+            <h3 style="font-size: 16px; color: var(--primary); margin-bottom: 5px;" id="adTitleText">Sponsored Ad</h3>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;" id="adDescText">Please wait while we load the portal...</p>
+            <div id="adMediaContainer"></div>
+            <a id="adLinkBtn" href="#" target="_blank" class="btn" style="text-decoration:none; display:inline-block; margin-top:10px;">Learn More</a>
+        </div>
+    </div>
 
     <!-- Top App Bar -->
     <header class="app-header">
@@ -77,7 +95,6 @@
         
         <!-- Tab 1: Home Feed View -->
         <div id="tabHome">
-            <!-- Filter Pills -->
             <div class="app-filters">
                 <button class="pill-btn active" onclick="filterPosts('All', this)">All Feeds</button>
                 <button class="pill-btn" onclick="filterPosts('Free Earning', this)">Free Earning</button>
@@ -110,7 +127,7 @@
             </div>
         </div>
 
-        <!-- Tab 3: Eagle Eye Admin Panel (Hidden until 5 taps on logo + 5426) -->
+        <!-- Tab 3: Eagle Eye Admin Panel -->
         <div id="tabAdmin" class="hidden">
             <div class="app-card admin-card">
                 <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--primary); display: flex; align-items: center; gap: 6px;">
@@ -125,11 +142,26 @@
                 </select>
                 <textarea id="postDescInput" placeholder="Write description & instructions..."></textarea>
                 <input type="text" id="postUrlInput" placeholder="Target Joining Link (https://...)">
+                
+                <!-- Base64 Image Upload Option -->
+                <label style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Attach Image (Optional)</label>
+                <input type="file" id="postImageInput" accept="image/*" style="padding: 6px;">
+
                 <button class="btn" onclick="uploadPost()"><i class="fa-solid fa-paper-plane"></i> Publish Live Post</button>
                 
                 <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
+                
+                <!-- Ad Manager Section for Admin -->
+                <h3 style="font-size: 14px; margin-bottom: 8px; color: var(--primary);"><i class="fa-solid fa-rectangle-ad"></i> Configure Popup Ad</h3>
+                <input type="text" id="adTitleInput" placeholder="Ad Title">
+                <input type="text" id="adDescInput" placeholder="Ad Short Text">
+                <input type="text" id="adUrlInput" placeholder="Ad Target Link">
+                <input type="file" id="adImageInput" accept="image/*" style="padding: 6px;">
+                <button class="btn" style="background:#2563eb;" onclick="publishAd()">Update Live Ad</button>
+
+                <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
                 <h4 style="font-size: 13px; margin-bottom: 8px;">Active Posts Control</h4>
-                <div id="adminDeleteList" style="max-height: 180px; overflow-y: auto;"></div>
+                <div id="adminDeleteList" style="max-height: 150px; overflow-y: auto;"></div>
             </div>
         </div>
 
@@ -145,7 +177,7 @@
         </button>
     </nav>
 
-    <!-- Firebase Script SDKs -->
+    <!-- Firebase SDK Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -176,7 +208,7 @@
             document.getElementById('tabAdmin').classList.add('hidden');
 
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            btnElement.classList.add('active');
+            if(btnElement) btnElement.classList.add('active');
 
             if(tabName === 'Home') document.getElementById('tabHome').classList.remove('hidden');
             if(tabName === 'Account') document.getElementById('tabAccount').classList.remove('hidden');
@@ -190,7 +222,6 @@
             if (tapCount === 5) {
                 let code = prompt("Enter Eagle Eye Secret Code:");
                 if (code === "5426") {
-                    // Add Admin button dynamically to bottom nav if unlocked
                     const navBar = document.querySelector('.app-bottom-nav');
                     if(!document.getElementById('adminNavBtn')) {
                         navBar.innerHTML += `
@@ -246,23 +277,69 @@
             }
         });
 
-        // --- Post System ---
+        // --- Base64 Image Converter Helper ---
+        function getBase64(file, callback) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => callback(reader.result);
+            reader.onerror = error => console.log('Error: ', error);
+        }
+
+        // --- Upload Post with Image (Base64) ---
         window.uploadPost = () => {
             const title = document.getElementById('postTitleInput').value.trim();
             const category = document.getElementById('postCategory').value;
             const description = document.getElementById('postDescInput').value.trim();
             const url = document.getElementById('postUrlInput').value.trim();
+            const imageFile = document.getElementById('postImageInput').files[0];
 
             if(!title || !url) { alert("Title and Link are required sweetie!"); return; }
 
-            push(ref(db, 'posts'), { title, category, description, url, likes: 0, timestamp: Date.now() })
-                .then(() => {
+            const saveData = (imageBase64 = "") => {
+                push(ref(db, 'posts'), { 
+                    title, category, description, url, 
+                    image: imageBase64, 
+                    likes: 0, 
+                    timestamp: Date.now() 
+                }).then(() => {
                     document.getElementById('postTitleInput').value = '';
                     document.getElementById('postDescInput').value = '';
                     document.getElementById('postUrlInput').value = '';
+                    document.getElementById('postImageInput').value = '';
                     alert("Posted live successfully!");
                     switchTab('Home', document.querySelector('.app-bottom-nav .nav-item'));
                 });
+            };
+
+            if (imageFile) {
+                getBase64(imageFile, (base64String) => {
+                    saveData(base64String);
+                });
+            } else {
+                saveData("");
+            }
+        };
+
+        // --- Publish / Update Ad System ---
+        window.publishAd = () => {
+            const title = document.getElementById('adTitleInput').value.trim();
+            const description = document.getElementById('adDescInput').value.trim();
+            const url = document.getElementById('adUrlInput').value.trim();
+            const imageFile = document.getElementById('adImageInput').files[0];
+
+            const saveAdData = (imgBase64 = "") => {
+                set(ref(db, 'activeAd'), {
+                    title, description, url,
+                    image: imgBase64,
+                    active: true
+                }).then(() => alert("Live Ad updated successfully!"));
+            };
+
+            if (imageFile) {
+                getBase64(imageFile, (base64) => saveAdData(base64));
+            } else {
+                saveAdData("");
+            }
         };
 
         window.deletePost = (id) => { if(confirm("Delete this post?")) remove(ref(db, 'posts/' + id)); };
@@ -276,7 +353,37 @@
             renderFeed();
         };
 
-        // --- Realtime Sync ---
+        // --- Realtime Sync & 5-Second Auto-Close Ad Logic ---
+        onValue(ref(db, 'activeAd'), (snapshot) => {
+            const adData = snapshot.val();
+            if (adData && adData.active) {
+                document.getElementById('adTitleText').innerText = adData.title || "Sponsored Ad";
+                document.getElementById('adDescText').innerText = adData.description || "";
+                document.getElementById('adLinkBtn').href = adData.url || "#";
+                
+                const mediaDiv = document.getElementById('adMediaContainer');
+                mediaDiv.innerHTML = adData.image ? `<img src="${adData.image}" class="ad-content-img">` : '';
+
+                // Show Ad Popup
+                const adPopup = document.getElementById('adPopup');
+                adPopup.classList.remove('hidden');
+
+                // 5-Second Timer Countdown
+                let timeLeft = 5;
+                const timerBadge = document.getElementById('adTimerBadge');
+                timerBadge.innerText = `Closing in ${timeLeft}s`;
+
+                const timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timerBadge.innerText = `Closing in ${timeLeft}s`;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        adPopup.classList.add('hidden');
+                    }
+                }, 1000);
+            }
+        });
+
         onValue(ref(db, 'posts'), (snapshot) => {
             const data = snapshot.val();
             allPostsData = [];
@@ -310,6 +417,8 @@
 
             filtered.forEach(post => {
                 let timeStr = new Date(post.timestamp).toLocaleDateString() + ' ' + new Date(post.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                let imageHTML = post.image ? `<img src="${post.image}" class="post-img">` : '';
+
                 container.innerHTML += `
                     <div class="app-card">
                         <div class="post-top">
@@ -318,6 +427,7 @@
                         </div>
                         <div class="post-time">${timeStr}</div>
                         <div class="post-body">${escapeHtml(post.description)}</div>
+                        ${imageHTML}
                         
                         <div style="margin-bottom: 10px;">
                             <a href="${escapeHtml(post.url)}" target="_blank" class="app-action-btn join-btn" style="text-decoration:none; display:inline-flex;">
