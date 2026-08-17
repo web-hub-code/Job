@@ -14,24 +14,36 @@
             --card: #ffffff;
             --text: #1e293b;
             --border: #e2e8f0;
+            --input-bg: #f8fafc;
+        }
+        body.dark-mode {
+            --primary: #1e293b;
+            --accent: #34d399;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+            --input-bg: #0f172a;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 75px; padding-top: 60px; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 75px; padding-top: 60px; transition: background 0.3s, color 0.3s; }
         
         /* App Top Bar */
         .app-header { position: fixed; top: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
         .app-logo { cursor: pointer; font-size: 16px; font-weight: 700; color: var(--accent); user-select: none; display: flex; align-items: center; gap: 8px; }
+        .header-actions { display: flex; align-items: center; gap: 8px; }
         .app-user-status { font-size: 11px; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 12px; color: #cbd5e1; }
+        .theme-toggle-btn { background: none; border: none; color: #cbd5e1; font-size: 16px; cursor: pointer; padding: 4px; }
 
         .container { max-width: 500px; margin: 0 auto; padding: 12px; }
         .hidden { display: none !important; }
 
         /* Cards & UI */
-        .app-card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid var(--border); }
+        .app-card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid var(--border); transition: background 0.3s, border 0.3s; }
         .admin-card { border: 2px dashed var(--accent); }
 
-        input, select, textarea { width: 100%; padding: 10px 14px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; background: #f8fafc; }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent); background: #fff; }
+        input, select, textarea { width: 100%; padding: 10px 14px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; background: var(--input-bg); color: var(--text); }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent); background: var(--card); }
         textarea { resize: none; height: 75px; }
 
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
@@ -49,39 +61,45 @@
         #fakeNotification.show { transform: translateX(0); opacity: 1; }
 
         /* Welcome Section Styles */
-        .welcome-banner { background: linear-gradient(135deg, var(--primary), #1e293b); color: #fff; border-radius: 16px; padding: 20px; margin-bottom: 14px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .welcome-banner { background: linear-gradient(135deg, var(--primary), #1e293b); color: #fff; border-radius: 16px; padding: 20px; margin-bottom: 14px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid var(--border); }
         .welcome-banner h2 { font-size: 20px; color: var(--accent); margin-bottom: 6px; }
         .welcome-banner p { font-size: 12px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; text-align: left; }
         .service-box { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; font-size: 11px; border: 1px solid rgba(255,255,255,0.1); }
         .service-box i { color: var(--accent); margin-bottom: 4px; display: block; font-size: 14px; }
 
-        /* Filters */
+        /* Search Bar & Filters */
+        .search-box { position: relative; margin-bottom: 8px; }
+        .search-box input { padding-left: 36px; margin-bottom: 0; }
+        .search-box i { position: absolute; left: 12px; top: 12px; color: #94a3b8; font-size: 14px; }
+
         .app-filters { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px 0; scrollbar-width: none; }
         .app-filters::-webkit-scrollbar { display: none; }
-        .pill-btn { background: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; white-space: nowrap; font-weight: 500; color: #64748b; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .pill-btn { background: var(--card); border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; white-space: nowrap; font-weight: 500; color: var(--text); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .pill-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
         /* Post Item Layout */
         .post-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-        .post-heading { font-size: 15px; font-weight: 700; color: var(--primary); line-height: 1.3; }
+        .post-heading { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
         .app-badge { background: #e0f2fe; color: #0284c7; font-size: 9px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
-        .post-time { font-size: 10px; color: #94a3b8; margin-bottom: 8px; }
-        .post-body { font-size: 13px; color: #475569; margin-bottom: 10px; line-height: 1.5; white-space: pre-line; }
+        body.dark-mode .app-badge { background: #0369a1; color: #e0f2fe; }
+        .post-meta-row { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #94a3b8; margin-bottom: 8px; }
+        .post-body { font-size: 13px; color: var(--text); opacity: 0.85; margin-bottom: 10px; line-height: 1.5; white-space: pre-line; }
         .post-img { width: 100%; border-radius: 10px; max-height: 250px; object-fit: cover; margin-bottom: 12px; border: 1px solid var(--border); }
         
-        .post-action-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 8px; }
-        .app-action-btn { background: #f8fafc; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: #475569; }
+        .post-action-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 8px; }
+        .app-action-btn { background: var(--input-bg); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: var(--text); }
         .join-btn { background: #eff6ff; color: #2563eb; border-color: #dbeafe; }
+        body.dark-mode .join-btn { background: #1e3a8a; color: #93c5fd; border-color: #1d4ed8; }
 
         /* Ad Overlay Popup */
         .ad-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .ad-modal { background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 20px; text-align: center; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .ad-modal { background: var(--card); width: 100%; max-width: 400px; border-radius: 16px; padding: 20px; text-align: center; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid var(--border); }
         .ad-timer { position: absolute; top: 12px; right: 15px; background: #fee2e2; color: #dc2626; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
         .ad-content-img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin: 10px 0; }
 
         /* Bottom App Navigation Bar */
-        .app-bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
+        .app-bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
         .nav-item { text-align: center; color: #64748b; font-size: 10px; cursor: pointer; background: none; border: none; flex: 1; font-weight: 500; }
         .nav-item i { font-size: 16px; display: block; margin-bottom: 2px; }
         .nav-item.active { color: var(--accent); }
@@ -89,7 +107,7 @@
         /* Tables for Admin */
         .admin-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
         .admin-table th, .admin-table td { padding: 8px; border-bottom: 1px solid var(--border); text-align: left; }
-        .admin-table th { background: #f8fafc; color: var(--primary); font-weight: 600; }
+        .admin-table th { background: var(--input-bg); color: var(--text); font-weight: 600; }
     </style>
 </head>
 <body>
@@ -109,8 +127,8 @@
     <div id="adPopup" class="ad-overlay hidden">
         <div class="ad-modal">
             <div id="adTimerBadge" class="ad-timer">Closing in 5s</div>
-            <h3 style="font-size: 16px; color: var(--primary); margin-bottom: 5px;" id="adTitleText">Sponsored Ad</h3>
-            <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;" id="adDescText">Please wait...</p>
+            <h3 style="font-size: 16px; color: var(--text); margin-bottom: 5px;" id="adTitleText">Sponsored Ad</h3>
+            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 10px;" id="adDescText">Please wait...</p>
             <div id="adMediaContainer"></div>
             <a id="adLinkBtn" href="#" target="_blank" class="btn" style="text-decoration:none; display:inline-block; margin-top:10px;">Learn More</a>
         </div>
@@ -121,7 +139,10 @@
         <div class="app-logo" onclick="handleLogoTap()">
             <i class="fa-solid fa-bolt" style="color: var(--accent);"></i> Prime Solutions
         </div>
-        <div id="headerStatus" class="app-user-status">Guest Mode</div>
+        <div class="header-actions">
+            <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Theme"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+            <div id="headerStatus" class="app-user-status">Guest Mode</div>
+        </div>
     </header>
 
     <div class="container">
@@ -140,12 +161,19 @@
                 </div>
             </div>
 
+            <!-- Live Search Bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search posts, platforms (e.g. Vestify Pro)..." oninput="handleSearch()">
+            </div>
+
             <div class="app-filters">
                 <button class="pill-btn active" onclick="filterPosts('All', this)">All Feeds</button>
                 <button class="pill-btn" onclick="filterPosts('Free Earning', this)">Free Earning</button>
                 <button class="pill-btn" onclick="filterPosts('Investment', this)">Investment</button>
                 <button class="pill-btn" onclick="filterPosts('Apps & Games', this)">Apps & Games</button>
                 <button class="pill-btn" onclick="filterPosts('Social Media Tasks', this)">Social Media Tasks</button>
+                <button class="pill-btn" onclick="filterPosts('Saved', this)"><i class="fa-solid fa-bookmark"></i> Saved</button>
             </div>
 
             <div id="feedContainer">
@@ -156,8 +184,8 @@
         <!-- Tab 2: Help & Support View -->
         <div id="tabHelp" class="hidden">
             <div class="app-card">
-                <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--primary);">Realtime Help & Support</h3>
-                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Send your queries or messages directly to the Prime Solutions admin team in realtime!</p>
+                <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--text);">Realtime Help & Support</h3>
+                <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Send your queries or messages directly to the Prime Solutions admin team in realtime!</p>
                 <input type="text" id="helpUserName" placeholder="Your Name">
                 <input type="email" id="helpUserEmail" placeholder="Your Email">
                 <textarea id="helpUserMsg" placeholder="Describe your issue or question..."></textarea>
@@ -168,12 +196,12 @@
         <!-- Tab 3: Account / Login View -->
         <div id="tabAccount" class="hidden">
             <div class="app-card">
-                <h3 id="authTitle" style="font-size: 16px; margin-bottom: 12px; color: var(--primary);">Account Login</h3>
+                <h3 id="authTitle" style="font-size: 16px; margin-bottom: 12px; color: var(--text);">Account Login</h3>
                 <input type="email" id="authEmail" placeholder="Email Address">
                 <input type="password" id="authPassword" placeholder="Password">
                 <button class="btn" id="authSubmitBtn" onclick="submitAuth()">Login</button>
                 <button class="btn btn-google" onclick="loginWithGoogle()"><i class="fa-brands fa-google"></i> Continue with Google</button>
-                <div style="text-align: center; margin-top: 12px; font-size: 12px; color: #64748b; cursor: pointer;" onclick="toggleAuthMode()">
+                <div style="text-align: center; margin-top: 12px; font-size: 12px; color: #94a3b8; cursor: pointer;" onclick="toggleAuthMode()">
                     Don't have an account? <span style="color: var(--accent); font-weight: 600;">Sign Up</span>
                 </div>
             </div>
@@ -188,12 +216,12 @@
         <!-- Tab 4: Eagle Eye Admin Panel -->
         <div id="tabAdmin" class="hidden">
             <div class="app-card admin-card">
-                <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--primary); display: flex; align-items: center; gap: 6px;">
+                <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-shield-halved" style="color: var(--accent);"></i> Eagle Eye Admin Panel
                 </h3>
 
                 <!-- Registered Users Section -->
-                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-users"></i> Registered Users Data</h4>
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--text);"><i class="fa-solid fa-users"></i> Registered Users Data</h4>
                 <div style="max-height: 160px; overflow-y: auto; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 8px;">
                     <table class="admin-table">
                         <thead><tr><th>Email</th><th>Auth Method</th><th>Action</th></tr></thead>
@@ -204,7 +232,7 @@
                 <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
 
                 <!-- Unlimited Posts Creator -->
-                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-newspaper"></i> Create Unlimited Post</h4>
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--text);"><i class="fa-solid fa-newspaper"></i> Create Unlimited Post</h4>
                 <input type="text" id="postTitleInput" placeholder="Post Title">
                 <select id="postCategory">
                     <option value="Free Earning">Free Earning</option>
@@ -215,17 +243,17 @@
                 <textarea id="postDescInput" placeholder="Write description & instructions..."></textarea>
                 <input type="text" id="postUrlInput" placeholder="Target Joining Link (https://...)">
                 
-                <label style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Attach Image (Base64)</label>
+                <label style="font-size: 11px; font-weight: 600; color: #94a3b8; display: block; margin-bottom: 4px;">Attach Image (Base64)</label>
                 <input type="file" id="postImageInput" accept="image/*" style="padding: 6px;">
                 <button class="btn" onclick="uploadPost()"><i class="fa-solid fa-paper-plane"></i> Publish Live Post</button>
                 
                 <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
                 
                 <!-- Ad Manager Section -->
-                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-rectangle-ad"></i> Configure Popup Ad & Interval</h4>
-                <input type="text" id="adTitleInput" placeholder="Ad Title">
-                <input type="text" id="adDescInput" placeholder="Ad Short Text">
-                <input type="text" id="adUrlInput" placeholder="Ad Target Link">
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--text);"><i class="fa-solid fa-rectangle-ad"></i> Configure Popup Ad & Interval</h4>
+                <input type="text" id="adTitleInput" placeholder="Ad Title" value="🚀 Vestify Pro - Cloud Mining & Affiliate Earnings!">
+                <input type="text" id="adDescInput" placeholder="Ad Short Text" value="Start your cloud mining journey today. Earn daily profits and grow your income securely!">
+                <input type="text" id="adUrlInput" placeholder="Ad Target Link" value="https://bit.ly/4zqAtFi">
                 <select id="adIntervalSelect">
                     <option value="2">Show every 2 minutes</option>
                     <option value="4">Show every 4 minutes</option>
@@ -234,15 +262,18 @@
                 </select>
                 <input type="file" id="adImageInput" accept="image/*" style="padding: 6px;">
                 <button class="btn" style="background:#2563eb;" onclick="publishAd()">Update Live Ad Settings</button>
+                <button class="btn btn-danger" style="margin-top: 8px;" onclick="deleteActiveAd()">
+                    <i class="fa-solid fa-trash"></i> Remove / Turn Off Active Ad
+                </button>
 
                 <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
 
                 <!-- Realtime Help Messages from Users -->
-                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-headset"></i> User Help Messages</h4>
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--text);"><i class="fa-solid fa-headset"></i> User Help Messages</h4>
                 <div id="adminHelpMessagesList" style="max-height: 150px; overflow-y: auto; margin-bottom: 15px;"></div>
 
                 <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
-                <h4 style="font-size: 13px; margin-bottom: 8px;">Active Posts Control & Deletion</h4>
+                <h4 style="font-size: 13px; margin-bottom: 8px; color: var(--text);">Active Posts Control & Deletion</h4>
                 <div id="adminDeleteList" style="max-height: 150px; overflow-y: auto;"></div>
             </div>
         </div>
@@ -286,6 +317,20 @@
         let isSignUpMode = false;
         let allPostsData = [];
         let currentFilter = 'All';
+        let searchQuery = '';
+
+        // --- Dark Mode Handler ---
+        window.toggleDarkMode = () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('prime_dark_mode', isDark);
+            document.getElementById('themeIcon').className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        };
+
+        if (localStorage.getItem('prime_dark_mode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeIcon').className = "fa-solid fa-sun";
+        }
 
         function showLoader(text = "Processing...") {
             document.getElementById('loadingText').innerText = text;
@@ -417,6 +462,7 @@
                     title, category, description, url, 
                     image: imageBase64, 
                     likes: 0, 
+                    views: 0,
                     timestamp: Date.now() 
                 }).then(() => {
                     document.getElementById('postTitleInput').value = '';
@@ -460,6 +506,26 @@
             }
         };
 
+        // --- Remove / Turn Off Active Ad Function ---
+        window.deleteActiveAd = () => {
+            if(confirm("Kya aap active ad ko remove karna chahte hain sweetie?")) {
+                showLoader("Removing ad...");
+                remove(ref(db, 'activeAd'))
+                    .then(() => {
+                        hideLoader();
+                        document.getElementById('adTitleInput').value = '';
+                        document.getElementById('adDescInput').value = '';
+                        document.getElementById('adUrlInput').value = '';
+                        document.getElementById('adImageInput').value = '';
+                        alert("Active ad successfully remove kar diya gaya hai!");
+                    })
+                    .catch(e => {
+                        hideLoader();
+                        alert(e.message);
+                    });
+            }
+        };
+
         // --- Help Message System ---
         window.sendHelpMessage = () => {
             const name = document.getElementById('helpUserName').value.trim();
@@ -482,12 +548,38 @@
         window.deleteUser = (uid) => { if(confirm("Remove user from records?")) remove(ref(db, 'users/' + uid)); };
         window.deleteHelpMsg = (id) => { remove(ref(db, 'helpMessages/' + id)); };
         window.likePost = (id, likes) => update(ref(db, 'posts/' + id), { likes: (likes || 0) + 1 });
+        
+        // --- Bookmark / Saved Posts System ---
+        window.toggleBookmark = (id) => {
+            let saved = JSON.parse(localStorage.getItem('prime_saved_posts') || '[]');
+            if(saved.includes(id)) {
+                saved = saved.filter(item => item !== id);
+                alert("Post removed from saved bookmarks!");
+            } else {
+                saved.push(id);
+                alert("Post saved to bookmarks successfully!");
+            }
+            localStorage.setItem('prime_saved_posts', JSON.stringify(saved));
+            renderFeed();
+        };
+
+        window.viewPostLink = (id, url, currentViews) => {
+            // Increment View Counter in DB
+            update(ref(db, 'posts/' + id), { views: (currentViews || 0) + 1 });
+            window.open(url, '_blank');
+        };
+
         window.copyPostLink = (url) => { navigator.clipboard.writeText(url); alert("Link copied!"); };
 
         window.filterPosts = (cat, btn) => {
             currentFilter = cat;
             document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            renderFeed();
+        };
+
+        window.handleSearch = () => {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
             renderFeed();
         };
 
@@ -530,7 +622,6 @@
 
         // --- Dynamic Ad Timer Loop based on Admin interval ---
         let adIntervalMinutes = 5;
-        let adTimerTriggered = false;
 
         onValue(ref(db, 'activeAd'), (snapshot) => {
             const adData = snapshot.val();
@@ -545,7 +636,7 @@
             }
         });
 
-        // Periodic Ad Trigger (Converts admin minutes to milliseconds)
+        // Periodic Ad Trigger
         setInterval(() => {
             const adPopup = document.getElementById('adPopup');
             adPopup.classList.remove('hidden');
@@ -602,7 +693,22 @@
         function renderFeed() {
             const container = document.getElementById('feedContainer');
             container.innerHTML = '';
-            let filtered = currentFilter === 'All' ? allPostsData : allPostsData.filter(p => p.category === currentFilter);
+            
+            let filtered = allPostsData;
+            
+            // Filter by Category or Saved Bookmarks
+            if(currentFilter === 'Saved') {
+                const savedIds = JSON.parse(localStorage.getItem('prime_saved_posts') || '[]');
+                filtered = filtered.filter(p => savedIds.includes(p.id));
+            } else if(currentFilter !== 'All') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+
+            // Filter by Search Query
+            if(searchQuery !== '') {
+                filtered = filtered.filter(p => p.title.toLowerCase().includes(searchQuery) || p.description.toLowerCase().includes(searchQuery));
+            }
+
             filtered.sort((a, b) => b.timestamp - a.timestamp);
 
             if(filtered.length === 0) {
@@ -610,9 +716,13 @@
                 return;
             }
 
+            const savedIds = JSON.parse(localStorage.getItem('prime_saved_posts') || '[]');
+
             filtered.forEach(post => {
                 let timeStr = new Date(post.timestamp).toLocaleDateString() + ' ' + new Date(post.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 let imageHTML = post.image ? `<img src="${post.image}" class="post-img">` : '';
+                let isBookmarked = savedIds.includes(post.id);
+                let bookmarkIconClass = isBookmarked ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
 
                 container.innerHTML += `
                     <div class="app-card">
@@ -620,12 +730,15 @@
                             <div class="post-heading">${escapeHtml(post.title)}</div>
                             <span class="app-badge">${escapeHtml(post.category || 'General')}</span>
                         </div>
-                        <div class="post-time">${timeStr}</div>
+                        <div class="post-meta-row">
+                            <span>${timeStr}</span>
+                            <span><i class="fa-solid fa-eye"></i> ${post.views || 0} views</span>
+                        </div>
                         <div class="post-body">${escapeHtml(post.description)}</div>
                         ${imageHTML}
                         
                         <div style="margin-bottom: 10px;">
-                            <a href="${escapeHtml(post.url)}" target="_blank" class="app-action-btn join-btn" style="text-decoration:none; display:inline-flex;">
+                            <a href="javascript:void(0)" onclick="viewPostLink('${post.id}', '${escapeHtml(post.url)}', ${post.views || 0})" class="app-action-btn join-btn" style="text-decoration:none; display:inline-flex;">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Link / Join Now
                             </a>
                         </div>
@@ -634,8 +747,11 @@
                             <button class="app-action-btn" onclick="likePost('${post.id}', ${post.likes || 0})">
                                 <i class="fa-solid fa-heart" style="color: #ef4444;"></i> (${post.likes || 0})
                             </button>
+                            <button class="app-action-btn" onclick="toggleBookmark('${post.id}')" style="color: ${isBookmarked ? 'var(--accent)' : 'inherit'};">
+                                <i class="${bookmarkIconClass}"></i> ${isBookmarked ? 'Saved' : 'Save'}
+                            </button>
                             <button class="app-action-btn" onclick="copyPostLink('${escapeHtml(post.url)}')">
-                                <i class="fa-solid fa-copy"></i> Copy Link
+                                <i class="fa-solid fa-copy"></i> Copy
                             </button>
                         </div>
                     </div>
