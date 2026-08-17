@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Global Earning & Job Portal - App</title>
+    <title>Prime Solutions - Global Earning & Service Portal</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -10,23 +10,23 @@
         :root {
             --primary: #0f172a;
             --accent: #10b981;
-            --bg: #f1f5f9;
+            --bg: #f8fafc;
             --card: #ffffff;
             --text: #1e293b;
             --border: #e2e8f0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 70px; padding-top: 60px; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 75px; padding-top: 60px; }
         
         /* App Top Bar */
         .app-header { position: fixed; top: 0; left: 0; width: 100%; background: var(--primary); color: #fff; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .app-logo { cursor: pointer; font-size: 18px; font-weight: 700; color: var(--accent); user-select: none; display: flex; align-items: center; gap: 8px; }
-        .app-user-status { font-size: 11px; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 12px; color: #cbd5e1; }
+        .app-logo { cursor: pointer; font-size: 16px; font-weight: 700; color: var(--accent); user-select: none; display: flex; align-items: center; gap: 8px; }
+        .app-user-status { font-size: 11px; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 12px; color: #cbd5e1; }
 
         .container { max-width: 500px; margin: 0 auto; padding: 12px; }
         .hidden { display: none !important; }
 
-        /* App Cards */
+        /* Cards & UI */
         .app-card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid var(--border); }
         .admin-card { border: 2px dashed var(--accent); }
 
@@ -34,11 +34,29 @@
         input:focus, select:focus, textarea:focus { border-color: var(--accent); background: #fff; }
         textarea { resize: none; height: 75px; }
 
-        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .btn:active { transform: scale(0.98); }
         .btn-danger { background: #ef4444; }
+        .btn-google { background: #db4437; margin-top: 8px; }
 
-        /* Categories App Pills */
+        /* Loading Spinner Overlay */
+        #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.6); z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; gap: 10px; }
+        .spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid var(--accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Fake Live Notifications Toast */
+        #fakeNotification { position: fixed; top: 70px; right: 15px; background: var(--primary); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 11px; z-index: 999; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border-left: 4px solid var(--accent); transition: transform 0.3s ease, opacity 0.3s ease; transform: translateX(120%); opacity: 0; max-width: 280px; }
+        #fakeNotification.show { transform: translateX(0); opacity: 1; }
+
+        /* Welcome Section Styles */
+        .welcome-banner { background: linear-gradient(135deg, var(--primary), #1e293b); color: #fff; border-radius: 16px; padding: 20px; margin-bottom: 14px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .welcome-banner h2 { font-size: 20px; color: var(--accent); margin-bottom: 6px; }
+        .welcome-banner p { font-size: 12px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; text-align: left; }
+        .service-box { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; font-size: 11px; border: 1px solid rgba(255,255,255,0.1); }
+        .service-box i { color: var(--accent); margin-bottom: 4px; display: block; font-size: 14px; }
+
+        /* Filters */
         .app-filters { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px 0; scrollbar-width: none; }
         .app-filters::-webkit-scrollbar { display: none; }
         .pill-btn { background: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; white-space: nowrap; font-weight: 500; color: #64748b; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
@@ -54,10 +72,9 @@
         
         .post-action-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 8px; }
         .app-action-btn { background: #f8fafc; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: #475569; }
-        .app-action-btn:hover { background: #f1f5f9; }
         .join-btn { background: #eff6ff; color: #2563eb; border-color: #dbeafe; }
 
-        /* Auto-Close Ad Overlay Popup */
+        /* Ad Overlay Popup */
         .ad-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .ad-modal { background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 20px; text-align: center; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .ad-timer { position: absolute; top: 12px; right: 15px; background: #fee2e2; color: #dc2626; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
@@ -68,16 +85,32 @@
         .nav-item { text-align: center; color: #64748b; font-size: 10px; cursor: pointer; background: none; border: none; flex: 1; font-weight: 500; }
         .nav-item i { font-size: 16px; display: block; margin-bottom: 2px; }
         .nav-item.active { color: var(--accent); }
+
+        /* Tables for Admin */
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+        .admin-table th, .admin-table td { padding: 8px; border-bottom: 1px solid var(--border); text-align: left; }
+        .admin-table th { background: #f8fafc; color: var(--primary); font-weight: 600; }
     </style>
 </head>
 <body>
 
-    <!-- 5-Second Auto-Close Ad Popup -->
+    <!-- Loading Spinner -->
+    <div id="loadingOverlay" class="hidden">
+        <div class="spinner"></div>
+        <div id="loadingText" style="font-size: 13px; font-weight: 500;">Processing...</div>
+    </div>
+
+    <!-- Fake Notification Toast -->
+    <div id="fakeNotification">
+        <i class="fa-solid fa-bell" style="color: var(--accent);"></i> <span id="fakeNotifText"></span>
+    </div>
+
+    <!-- Ad Popup -->
     <div id="adPopup" class="ad-overlay hidden">
         <div class="ad-modal">
             <div id="adTimerBadge" class="ad-timer">Closing in 5s</div>
             <h3 style="font-size: 16px; color: var(--primary); margin-bottom: 5px;" id="adTitleText">Sponsored Ad</h3>
-            <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;" id="adDescText">Please wait while we load the portal...</p>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;" id="adDescText">Please wait...</p>
             <div id="adMediaContainer"></div>
             <a id="adLinkBtn" href="#" target="_blank" class="btn" style="text-decoration:none; display:inline-block; margin-top:10px;">Learn More</a>
         </div>
@@ -86,15 +119,27 @@
     <!-- Top App Bar -->
     <header class="app-header">
         <div class="app-logo" onclick="handleLogoTap()">
-            <i class="fa-solid fa-bolt" style="color: var(--accent);"></i> Global Portal
+            <i class="fa-solid fa-bolt" style="color: var(--accent);"></i> Prime Solutions
         </div>
         <div id="headerStatus" class="app-user-status">Guest Mode</div>
     </header>
 
     <div class="container">
         
-        <!-- Tab 1: Home Feed View -->
+        <!-- Tab 1: Home Feed & Welcome View -->
         <div id="tabHome">
+            <div class="welcome-banner">
+                <h2>Welcome to Prime Solutions</h2>
+                <p>Your ultimate portal for global earning jobs, application guides, and smart digital opportunities.</p>
+                <div style="font-size: 10px; color: var(--accent); font-weight: 600; margin-bottom: 8px;">DESIGN & POWERED BY PRIME SOLUTIONS</div>
+                <div class="services-grid">
+                    <div class="service-box"><i class="fa-solid fa-laptop-code"></i> Web Portals & Apps</div>
+                    <div class="service-box"><i class="fa-solid fa-wallet"></i> Earning Job Feeds</div>
+                    <div class="service-box"><i class="fa-solid fa-shield-halved"></i> Secure Firebase Data</div>
+                    <div class="service-box"><i class="fa-solid fa-bullhorn"></i> Promotional Ads</div>
+                </div>
+            </div>
+
             <div class="app-filters">
                 <button class="pill-btn active" onclick="filterPosts('All', this)">All Feeds</button>
                 <button class="pill-btn" onclick="filterPosts('Free Earning', this)">Free Earning</button>
@@ -108,14 +153,27 @@
             </div>
         </div>
 
-        <!-- Tab 2: Account / Auth View -->
+        <!-- Tab 2: Help & Support View -->
+        <div id="tabHelp" class="hidden">
+            <div class="app-card">
+                <h3 style="font-size: 16px; margin-bottom: 8px; color: var(--primary);">Realtime Help & Support</h3>
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Send your queries or messages directly to the Prime Solutions admin team in realtime!</p>
+                <input type="text" id="helpUserName" placeholder="Your Name">
+                <input type="email" id="helpUserEmail" placeholder="Your Email">
+                <textarea id="helpUserMsg" placeholder="Describe your issue or question..."></textarea>
+                <button class="btn" onclick="sendHelpMessage()"><i class="fa-solid fa-paper-plane"></i> Send to Admin</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Account / Login View -->
         <div id="tabAccount" class="hidden">
             <div class="app-card">
                 <h3 id="authTitle" style="font-size: 16px; margin-bottom: 12px; color: var(--primary);">Account Login</h3>
                 <input type="email" id="authEmail" placeholder="Email Address">
                 <input type="password" id="authPassword" placeholder="Password">
                 <button class="btn" id="authSubmitBtn" onclick="submitAuth()">Login</button>
-                <div style="text-align: center; margin-top: 10px; font-size: 12px; color: #64748b; cursor: pointer;" onclick="toggleAuthMode()">
+                <button class="btn btn-google" onclick="loginWithGoogle()"><i class="fa-brands fa-google"></i> Continue with Google</button>
+                <div style="text-align: center; margin-top: 12px; font-size: 12px; color: #64748b; cursor: pointer;" onclick="toggleAuthMode()">
                     Don't have an account? <span style="color: var(--accent); font-weight: 600;">Sign Up</span>
                 </div>
             </div>
@@ -127,12 +185,26 @@
             </div>
         </div>
 
-        <!-- Tab 3: Eagle Eye Admin Panel -->
+        <!-- Tab 4: Eagle Eye Admin Panel -->
         <div id="tabAdmin" class="hidden">
             <div class="app-card admin-card">
                 <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--primary); display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-shield-halved" style="color: var(--accent);"></i> Eagle Eye Admin Panel
                 </h3>
+
+                <!-- Registered Users Section -->
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-users"></i> Registered Users Data</h4>
+                <div style="max-height: 160px; overflow-y: auto; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 8px;">
+                    <table class="admin-table">
+                        <thead><tr><th>Email</th><th>Auth Method</th><th>Action</th></tr></thead>
+                        <tbody id="adminUsersTableBody"></tbody>
+                    </table>
+                </div>
+
+                <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
+
+                <!-- Unlimited Posts Creator -->
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-newspaper"></i> Create Unlimited Post</h4>
                 <input type="text" id="postTitleInput" placeholder="Post Title">
                 <select id="postCategory">
                     <option value="Free Earning">Free Earning</option>
@@ -143,24 +215,34 @@
                 <textarea id="postDescInput" placeholder="Write description & instructions..."></textarea>
                 <input type="text" id="postUrlInput" placeholder="Target Joining Link (https://...)">
                 
-                <!-- Base64 Image Upload Option -->
-                <label style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Attach Image (Optional)</label>
+                <label style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Attach Image (Base64)</label>
                 <input type="file" id="postImageInput" accept="image/*" style="padding: 6px;">
-
                 <button class="btn" onclick="uploadPost()"><i class="fa-solid fa-paper-plane"></i> Publish Live Post</button>
                 
                 <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
                 
-                <!-- Ad Manager Section for Admin -->
-                <h3 style="font-size: 14px; margin-bottom: 8px; color: var(--primary);"><i class="fa-solid fa-rectangle-ad"></i> Configure Popup Ad</h3>
+                <!-- Ad Manager Section -->
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-rectangle-ad"></i> Configure Popup Ad & Interval</h4>
                 <input type="text" id="adTitleInput" placeholder="Ad Title">
                 <input type="text" id="adDescInput" placeholder="Ad Short Text">
                 <input type="text" id="adUrlInput" placeholder="Ad Target Link">
+                <select id="adIntervalSelect">
+                    <option value="2">Show every 2 minutes</option>
+                    <option value="4">Show every 4 minutes</option>
+                    <option value="5" selected>Show every 5 minutes</option>
+                    <option value="10">Show every 10 minutes</option>
+                </select>
                 <input type="file" id="adImageInput" accept="image/*" style="padding: 6px;">
-                <button class="btn" style="background:#2563eb;" onclick="publishAd()">Update Live Ad</button>
+                <button class="btn" style="background:#2563eb;" onclick="publishAd()">Update Live Ad Settings</button>
 
                 <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
-                <h4 style="font-size: 13px; margin-bottom: 8px;">Active Posts Control</h4>
+
+                <!-- Realtime Help Messages from Users -->
+                <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--primary);"><i class="fa-solid fa-headset"></i> User Help Messages</h4>
+                <div id="adminHelpMessagesList" style="max-height: 150px; overflow-y: auto; margin-bottom: 15px;"></div>
+
+                <hr style="margin: 15px 0; border:0; border-top:1px solid var(--border);">
+                <h4 style="font-size: 13px; margin-bottom: 8px;">Active Posts Control & Deletion</h4>
                 <div id="adminDeleteList" style="max-height: 150px; overflow-y: auto;"></div>
             </div>
         </div>
@@ -172,6 +254,9 @@
         <button class="nav-item active" onclick="switchTab('Home', this)">
             <i class="fa-solid fa-house"></i>Home
         </button>
+        <button class="nav-item" onclick="switchTab('Help', this)">
+            <i class="fa-solid fa-headset"></i>Help
+        </button>
         <button class="nav-item" onclick="switchTab('Account', this)">
             <i class="fa-solid fa-user"></i>Account
         </button>
@@ -180,7 +265,7 @@
     <!-- Firebase SDK Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, push, set, remove, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -196,14 +281,24 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
+        const googleProvider = new GoogleAuthProvider();
 
         let isSignUpMode = false;
         let allPostsData = [];
         let currentFilter = 'All';
 
+        function showLoader(text = "Processing...") {
+            document.getElementById('loadingText').innerText = text;
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+        function hideLoader() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+
         // --- App Tab Switcher ---
         window.switchTab = (tabName, btnElement) => {
             document.getElementById('tabHome').classList.add('hidden');
+            document.getElementById('tabHelp').classList.add('hidden');
             document.getElementById('tabAccount').classList.add('hidden');
             document.getElementById('tabAdmin').classList.add('hidden');
 
@@ -211,6 +306,7 @@
             if(btnElement) btnElement.classList.add('active');
 
             if(tabName === 'Home') document.getElementById('tabHome').classList.remove('hidden');
+            if(tabName === 'Help') document.getElementById('tabHelp').classList.remove('hidden');
             if(tabName === 'Account') document.getElementById('tabAccount').classList.remove('hidden');
             if(tabName === 'Admin') document.getElementById('tabAdmin').classList.remove('hidden');
         };
@@ -239,23 +335,43 @@
             }
         };
 
-        // --- Auth System ---
+        // --- Auth & User Recording System ---
         window.toggleAuthMode = () => {
             isSignUpMode = !isSignUpMode;
             document.getElementById('authTitle').innerText = isSignUpMode ? "Create New Account" : "Account Login";
             document.getElementById('authSubmitBtn').innerText = isSignUpMode ? "Sign Up" : "Login";
         };
 
+        function saveUserDataToDB(user, authType) {
+            set(ref(db, 'users/' + user.uid), {
+                email: user.email || "No Email",
+                authMethod: authType,
+                lastLogin: Date.now()
+            });
+        }
+
         window.submitAuth = () => {
             const email = document.getElementById('authEmail').value;
             const pass = document.getElementById('authPassword').value;
             if(!email || !pass) { alert("Enter email and password sweetie!"); return; }
+            showLoader("Authenticating...");
 
             if(isSignUpMode) {
-                createUserWithEmailAndPassword(auth, email, pass).then(() => alert("Account created!")).catch(e => alert(e.message));
+                createUserWithEmailAndPassword(auth, email, pass)
+                    .then((res) => { saveUserDataToDB(res.user, "Email/Password"); hideLoader(); alert("Account created successfully!"); })
+                    .catch(e => { hideLoader(); alert(e.message); });
             } else {
-                signInWithEmailAndPassword(auth, email, pass).then(() => alert("Logged in!")).catch(e => alert(e.message));
+                signInWithEmailAndPassword(auth, email, pass)
+                    .then((res) => { saveUserDataToDB(res.user, "Email/Password"); hideLoader(); alert("Logged in successfully!"); })
+                    .catch(e => { hideLoader(); alert(e.message); });
             }
+        };
+
+        window.loginWithGoogle = () => {
+            showLoader("Connecting with Google...");
+            signInWithPopup(auth, googleProvider)
+                .then((res) => { saveUserDataToDB(res.user, "Google"); hideLoader(); alert("Google login successful!"); })
+                .catch(e => { hideLoader(); alert(e.message); });
         };
 
         window.logoutUser = () => { signOut(auth).then(() => alert("Logged out!")); };
@@ -285,7 +401,7 @@
             reader.onerror = error => console.log('Error: ', error);
         }
 
-        // --- Upload Post with Image (Base64) ---
+        // --- Unlimited Post Creation (Base64) ---
         window.uploadPost = () => {
             const title = document.getElementById('postTitleInput').value.trim();
             const category = document.getElementById('postCategory').value;
@@ -294,6 +410,7 @@
             const imageFile = document.getElementById('postImageInput').files[0];
 
             if(!title || !url) { alert("Title and Link are required sweetie!"); return; }
+            showLoader("Publishing post...");
 
             const saveData = (imageBase64 = "") => {
                 push(ref(db, 'posts'), { 
@@ -306,33 +423,34 @@
                     document.getElementById('postDescInput').value = '';
                     document.getElementById('postUrlInput').value = '';
                     document.getElementById('postImageInput').value = '';
+                    hideLoader();
                     alert("Posted live successfully!");
                     switchTab('Home', document.querySelector('.app-bottom-nav .nav-item'));
                 });
             };
 
             if (imageFile) {
-                getBase64(imageFile, (base64String) => {
-                    saveData(base64String);
-                });
+                getBase64(imageFile, (base64String) => saveData(base64String));
             } else {
                 saveData("");
             }
         };
 
-        // --- Publish / Update Ad System ---
+        // --- Ad Configuration & Interval System ---
         window.publishAd = () => {
             const title = document.getElementById('adTitleInput').value.trim();
             const description = document.getElementById('adDescInput').value.trim();
             const url = document.getElementById('adUrlInput').value.trim();
+            const interval = parseInt(document.getElementById('adIntervalSelect').value) || 5;
             const imageFile = document.getElementById('adImageInput').files[0];
 
+            showLoader("Updating Ad settings...");
             const saveAdData = (imgBase64 = "") => {
                 set(ref(db, 'activeAd'), {
-                    title, description, url,
+                    title, description, url, interval,
                     image: imgBase64,
                     active: true
-                }).then(() => alert("Live Ad updated successfully!"));
+                }).then(() => { hideLoader(); alert("Live Ad & interval settings updated!"); });
             };
 
             if (imageFile) {
@@ -342,9 +460,29 @@
             }
         };
 
+        // --- Help Message System ---
+        window.sendHelpMessage = () => {
+            const name = document.getElementById('helpUserName').value.trim();
+            const email = document.getElementById('helpUserEmail').value.trim();
+            const message = document.getElementById('helpUserMsg').value.trim();
+
+            if(!name || !message) { alert("Please provide your name and message sweetie!"); return; }
+            showLoader("Sending message...");
+
+            push(ref(db, 'helpMessages'), {
+                name, email, message, timestamp: Date.now()
+            }).then(() => {
+                document.getElementById('helpUserMsg').value = '';
+                hideLoader();
+                alert("Your message has been sent to Prime Solutions Admin successfully!");
+            });
+        };
+
         window.deletePost = (id) => { if(confirm("Delete this post?")) remove(ref(db, 'posts/' + id)); };
+        window.deleteUser = (uid) => { if(confirm("Remove user from records?")) remove(ref(db, 'users/' + uid)); };
+        window.deleteHelpMsg = (id) => { remove(ref(db, 'helpMessages/' + id)); };
         window.likePost = (id, likes) => update(ref(db, 'posts/' + id), { likes: (likes || 0) + 1 });
-        window.copyPostLink = (url) => { navigator.clipboard.writeText(url); alert("Link copied to clipboard!"); };
+        window.copyPostLink = (url) => { navigator.clipboard.writeText(url); alert("Link copied!"); };
 
         window.filterPosts = (cat, btn) => {
             currentFilter = cat;
@@ -353,37 +491,94 @@
             renderFeed();
         };
 
-        // --- Realtime Sync & 5-Second Auto-Close Ad Logic ---
+        // --- Admin Data Sync: Users & Help Messages ---
+        onValue(ref(db, 'users'), (snapshot) => {
+            const data = snapshot.val();
+            const userTable = document.getElementById('adminUsersTableBody');
+            userTable.innerHTML = '';
+            if(data) {
+                Object.keys(data).forEach(uid => {
+                    userTable.innerHTML += `
+                        <tr>
+                            <td>${escapeHtml(data[uid].email)}</td>
+                            <td>${escapeHtml(data[uid].authMethod)}</td>
+                            <td><button class="btn btn-danger" style="width:auto; padding:2px 6px; font-size:10px;" onclick="deleteUser('${uid}')">Remove</button></td>
+                        </tr>
+                    `;
+                });
+            }
+        });
+
+        onValue(ref(db, 'helpMessages'), (snapshot) => {
+            const data = snapshot.val();
+            const helpList = document.getElementById('adminHelpMessagesList');
+            helpList.innerHTML = '';
+            if(data) {
+                Object.keys(data).forEach(id => {
+                    helpList.innerHTML += `
+                        <div style="padding:8px; border-bottom:1px solid #f1f5f9; font-size:11px;">
+                            <strong>${escapeHtml(data[id].name)}</strong> (${escapeHtml(data[id].email || 'N/A')}):<br>
+                            ${escapeHtml(data[id].message)}
+                            <div style="text-align: right; margin-top: 4px;">
+                                <button class="btn btn-danger" style="width:auto; padding:2px 6px; font-size:10px;" onclick="deleteHelpMsg('${id}')">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        });
+
+        // --- Dynamic Ad Timer Loop based on Admin interval ---
+        let adIntervalMinutes = 5;
+        let adTimerTriggered = false;
+
         onValue(ref(db, 'activeAd'), (snapshot) => {
             const adData = snapshot.val();
             if (adData && adData.active) {
                 document.getElementById('adTitleText').innerText = adData.title || "Sponsored Ad";
                 document.getElementById('adDescText').innerText = adData.description || "";
                 document.getElementById('adLinkBtn').href = adData.url || "#";
+                adIntervalMinutes = parseInt(adData.interval) || 5;
                 
                 const mediaDiv = document.getElementById('adMediaContainer');
                 mediaDiv.innerHTML = adData.image ? `<img src="${adData.image}" class="ad-content-img">` : '';
-
-                // Show Ad Popup
-                const adPopup = document.getElementById('adPopup');
-                adPopup.classList.remove('hidden');
-
-                // 5-Second Timer Countdown
-                let timeLeft = 5;
-                const timerBadge = document.getElementById('adTimerBadge');
-                timerBadge.innerText = `Closing in ${timeLeft}s`;
-
-                const timerInterval = setInterval(() => {
-                    timeLeft--;
-                    timerBadge.innerText = `Closing in ${timeLeft}s`;
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        adPopup.classList.add('hidden');
-                    }
-                }, 1000);
             }
         });
 
+        // Periodic Ad Trigger (Converts admin minutes to milliseconds)
+        setInterval(() => {
+            const adPopup = document.getElementById('adPopup');
+            adPopup.classList.remove('hidden');
+
+            let timeLeft = 5;
+            const timerBadge = document.getElementById('adTimerBadge');
+            timerBadge.innerText = `Closing in ${timeLeft}s`;
+
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                timerBadge.innerText = `Closing in ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    adPopup.classList.add('hidden');
+                }
+            }, 1000);
+        }, adIntervalMinutes * 60 * 1000);
+
+        // --- Fake Engagement Notifications Loop ---
+        const fakeNames = ["Ali Khan", "Zainab", "Bilal Ahmed", "Sana", "Hamza", "Ayesha"];
+        const fakeActions = ["just joined Free Earning!", "withdrew $20 successfully!", "completed a social media task!", "unlocked VIP portal access!"];
+        
+        setInterval(() => {
+            const randomName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+            const randomAction = fakeActions[Math.floor(Math.random() * fakeActions.length)];
+            const notif = document.getElementById('fakeNotification');
+            document.getElementById('fakeNotifText').innerText = `${randomName} ${randomAction}`;
+            
+            notif.classList.add('show');
+            setTimeout(() => { notif.classList.remove('show'); }, 4000);
+        }, 18000);
+
+        // --- Posts Sync & Rendering ---
         onValue(ref(db, 'posts'), (snapshot) => {
             const data = snapshot.val();
             allPostsData = [];
