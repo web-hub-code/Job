@@ -46,21 +46,22 @@
         input:focus, select:focus, textarea:focus { border-color: var(--accent); background: var(--card); }
         textarea { resize: none; height: 75px; }
 
-        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
         .btn:active { transform: scale(0.98); }
         .btn-danger { background: #ef4444; }
         .btn-google { background: #db4437; margin-top: 8px; }
+        .btn-whatsapp { background: #25d366; color: white; margin-bottom: 12px; }
 
         /* Loading Spinner Overlay */
         #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.6); z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; gap: 10px; }
         .spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid var(--accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 0.8s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Fake Live Notifications Toast */
+        /* Fake Notifications Toast */
         #fakeNotification { position: fixed; top: 70px; right: 15px; background: var(--primary); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 11px; z-index: 999; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border-left: 4px solid var(--accent); transition: transform 0.3s ease, opacity 0.3s ease; transform: translateX(120%); opacity: 0; max-width: 280px; }
         #fakeNotification.show { transform: translateX(0); opacity: 1; }
 
-        /* Welcome Section Styles */
+        /* Welcome Section */
         .welcome-banner { background: linear-gradient(135deg, var(--primary), #1e293b); color: #fff; border-radius: 16px; padding: 20px; margin-bottom: 14px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid var(--border); }
         .welcome-banner h2 { font-size: 20px; color: var(--accent); margin-bottom: 6px; }
         .welcome-banner p { font-size: 12px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
@@ -68,7 +69,7 @@
         .service-box { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; font-size: 11px; border: 1px solid rgba(255,255,255,0.1); }
         .service-box i { color: var(--accent); margin-bottom: 4px; display: block; font-size: 14px; }
 
-        /* Search Bar & Filters */
+        /* Search & Filters */
         .search-box { position: relative; margin-bottom: 8px; }
         .search-box input { padding-left: 36px; margin-bottom: 0; }
         .search-box i { position: absolute; left: 12px; top: 12px; color: #94a3b8; font-size: 14px; }
@@ -78,7 +79,7 @@
         .pill-btn { background: var(--card); border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; white-space: nowrap; font-weight: 500; color: var(--text); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .pill-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* Post Item Layout */
+        /* Post Layout */
         .post-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
         .post-heading { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
         .app-badge { background: #e0f2fe; color: #0284c7; font-size: 9px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
@@ -87,6 +88,10 @@
         .post-body { font-size: 13px; color: var(--text); opacity: 0.85; margin-bottom: 10px; line-height: 1.5; white-space: pre-line; }
         .post-img { width: 100%; border-radius: 10px; max-height: 250px; object-fit: cover; margin-bottom: 12px; border: 1px solid var(--border); }
         
+        /* Star Rating Styles */
+        .star-rating-box { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #cbd5e1; margin-bottom: 10px; cursor: pointer; }
+        .star-rating-box .fa-star.rated { color: #f59e0b; }
+
         .post-action-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 8px; }
         .app-action-btn { background: var(--input-bg); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: var(--text); }
         .join-btn { background: #eff6ff; color: #2563eb; border-color: #dbeafe; }
@@ -98,8 +103,14 @@
         .ad-timer { position: absolute; top: 12px; right: 15px; background: #fee2e2; color: #dc2626; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
         .ad-content-img { width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin: 10px 0; }
 
+        /* Admin Analytics Cards */
+        .analytics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+        .stat-box { background: var(--input-bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px; text-align: center; }
+        .stat-box h5 { font-size: 10px; color: #94a3b8; margin-bottom: 4px; }
+        .stat-box span { font-size: 16px; font-weight: 700; color: var(--accent); }
+
         /* Bottom App Navigation Bar */
-        .app-bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
+        .app-bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000; box-shadow: -4px 12px rgba(0,0,0,0.05); }
         .nav-item { text-align: center; color: #64748b; font-size: 10px; cursor: pointer; background: none; border: none; flex: 1; font-weight: 500; }
         .nav-item i { font-size: 16px; display: block; margin-bottom: 2px; }
         .nav-item.active { color: var(--accent); }
@@ -152,6 +163,12 @@
             <div class="welcome-banner">
                 <h2>Welcome to Prime Solutions</h2>
                 <p>Your ultimate portal for global earning jobs, application guides, and smart digital opportunities.</p>
+                
+                <!-- Direct WhatsApp Community Join Button -->
+                <a href="https://chat.whatsapp.com/D6QqMvZFBqLE4Hu4MsYEL5?s=cl&p=a&ilr=1" target="_blank" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 16px;"></i> Join WhatsApp Community Hub
+                </a>
+
                 <div style="font-size: 10px; color: var(--accent); font-weight: 600; margin-bottom: 8px;">DESIGN & POWERED BY PRIME SOLUTIONS</div>
                 <div class="services-grid">
                     <div class="service-box"><i class="fa-solid fa-laptop-code"></i> Web Portals & Apps</div>
@@ -159,6 +176,13 @@
                     <div class="service-box"><i class="fa-solid fa-shield-halved"></i> Secure Firebase Data</div>
                     <div class="service-box"><i class="fa-solid fa-bullhorn"></i> Promotional Ads</div>
                 </div>
+            </div>
+
+            <!-- Install App (PWA) Banner (Hidden by default unless installable) -->
+            <div id="pwaInstallCard" class="app-card hidden" style="background: linear-gradient(135deg, #10b981, #059669); color: white; text-align: center; padding: 12px;">
+                <h4 style="font-size: 13px; margin-bottom: 4px;"><i class="fa-solid fa-mobile-screen-button"></i> Install Prime Solutions App</h4>
+                <p style="font-size: 11px; margin-bottom: 8px; opacity: 0.9;">Add to your home screen for quick access without opening browser!</p>
+                <button id="pwaInstallBtn" class="btn" style="background: white; color: #065f46; font-weight: 700; width: auto; margin: 0 auto; padding: 6px 16px;">Install Now</button>
             </div>
 
             <!-- Live Search Bar -->
@@ -219,6 +243,22 @@
                 <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 6px;">
                     <i class="fa-solid fa-shield-halved" style="color: var(--accent);"></i> Eagle Eye Admin Panel
                 </h3>
+
+                <!-- Admin Analytics Cards -->
+                <div class="analytics-grid">
+                    <div class="stat-box">
+                        <h5>Total Users</h5>
+                        <span id="statTotalUsers">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <h5>Total Posts</h5>
+                        <span id="statTotalPosts">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <h5>Total Views</h5>
+                        <span id="statTotalViews">0</span>
+                    </div>
+                </div>
 
                 <!-- Registered Users Section -->
                 <h4 style="font-size: 13px; margin-bottom: 6px; color: var(--text);"><i class="fa-solid fa-users"></i> Registered Users Data</h4>
@@ -318,6 +358,25 @@
         let allPostsData = [];
         let currentFilter = 'All';
         let searchQuery = '';
+
+        // --- PWA Install Prompt Handler ---
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('pwaInstallCard').classList.remove('hidden');
+        });
+
+        document.getElementById('pwaInstallBtn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('pwaInstallCard').classList.add('hidden');
+                }
+                deferredPrompt = null;
+            }
+        });
 
         // --- Dark Mode Handler ---
         window.toggleDarkMode = () => {
@@ -463,6 +522,8 @@
                     image: imageBase64, 
                     likes: 0, 
                     views: 0,
+                    totalRating: 0,
+                    ratingCount: 0,
                     timestamp: Date.now() 
                 }).then(() => {
                     document.getElementById('postTitleInput').value = '';
@@ -506,7 +567,6 @@
             }
         };
 
-        // --- Remove / Turn Off Active Ad Function ---
         window.deleteActiveAd = () => {
             if(confirm("Kya aap active ad ko remove karna chahte hain sweetie?")) {
                 showLoader("Removing ad...");
@@ -519,10 +579,7 @@
                         document.getElementById('adImageInput').value = '';
                         alert("Active ad successfully remove kar diya gaya hai!");
                     })
-                    .catch(e => {
-                        hideLoader();
-                        alert(e.message);
-                    });
+                    .catch(e => { hideLoader(); alert(e.message); });
             }
         };
 
@@ -549,6 +606,37 @@
         window.deleteHelpMsg = (id) => { remove(ref(db, 'helpMessages/' + id)); };
         window.likePost = (id, likes) => update(ref(db, 'posts/' + id), { likes: (likes || 0) + 1 });
         
+        // --- Star Rating Handler ---
+        window.ratePost = (id, currentTotal, currentCount, ratingVal) => {
+            let ratedPosts = JSON.parse(localStorage.getItem('prime_rated_posts') || '{}');
+            if(ratedPosts[id]) {
+                alert("Aap is post ko pehle hi rate kar chuke hain sweetie!");
+                return;
+            }
+            ratedPosts[id] = ratingVal;
+            localStorage.setItem('prime_rated_posts', JSON.stringify(ratedPosts));
+
+            update(ref(db, 'posts/' + id), {
+                totalRating: (currentTotal || 0) + ratingVal,
+                ratingCount: (currentCount || 0) + 1
+            });
+            alert(`Thank you for rating ${ratingVal} stars sweetie!`);
+        };
+
+        // --- Social Share Handler ---
+        window.shareOnSocial = (platform, title, url) => {
+            let shareText = encodeURIComponent(`Check out this amazing opportunity on Prime Solutions: ${title}\nLink: ${url}`);
+            let shareUrl = "";
+            if(platform === 'whatsapp') {
+                shareUrl = `https://api.whatsapp.com/send?text=${shareText}`;
+            } else if(platform === 'facebook') {
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            } else if(platform === 'telegram') {
+                shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+            }
+            window.open(shareUrl, '_blank');
+        };
+
         // --- Bookmark / Saved Posts System ---
         window.toggleBookmark = (id) => {
             let saved = JSON.parse(localStorage.getItem('prime_saved_posts') || '[]');
@@ -564,7 +652,6 @@
         };
 
         window.viewPostLink = (id, url, currentViews) => {
-            // Increment View Counter in DB
             update(ref(db, 'posts/' + id), { views: (currentViews || 0) + 1 });
             window.open(url, '_blank');
         };
@@ -583,12 +670,14 @@
             renderFeed();
         };
 
-        // --- Admin Data Sync: Users & Help Messages ---
+        // --- Admin Data Sync & Analytics ---
         onValue(ref(db, 'users'), (snapshot) => {
             const data = snapshot.val();
             const userTable = document.getElementById('adminUsersTableBody');
             userTable.innerHTML = '';
+            let userCount = 0;
             if(data) {
+                userCount = Object.keys(data).length;
                 Object.keys(data).forEach(uid => {
                     userTable.innerHTML += `
                         <tr>
@@ -599,6 +688,7 @@
                     `;
                 });
             }
+            document.getElementById('statTotalUsers').innerText = userCount;
         });
 
         onValue(ref(db, 'helpMessages'), (snapshot) => {
@@ -620,9 +710,8 @@
             }
         });
 
-        // --- Dynamic Ad Timer Loop based on Admin interval ---
+        // --- Dynamic Ad Timer Loop ---
         let adIntervalMinutes = 5;
-
         onValue(ref(db, 'activeAd'), (snapshot) => {
             const adData = snapshot.val();
             if (adData && adData.active) {
@@ -636,7 +725,6 @@
             }
         });
 
-        // Periodic Ad Trigger
         setInterval(() => {
             const adPopup = document.getElementById('adPopup');
             adPopup.classList.remove('hidden');
@@ -669,24 +757,31 @@
             setTimeout(() => { notif.classList.remove('show'); }, 4000);
         }, 18000);
 
-        // --- Posts Sync & Rendering ---
+        // --- Posts Sync & Analytics Rendering ---
         onValue(ref(db, 'posts'), (snapshot) => {
             const data = snapshot.val();
             allPostsData = [];
             const deleteList = document.getElementById('adminDeleteList');
             deleteList.innerHTML = '';
+            let totalPostsCount = 0;
+            let totalViewsCount = 0;
 
             if(data) {
+                totalPostsCount = Object.keys(data).length;
                 Object.keys(data).forEach(key => {
-                    allPostsData.push({ id: key, ...data[key] });
+                    const postItem = data[key];
+                    totalViewsCount += (postItem.views || 0);
+                    allPostsData.push({ id: key, ...postItem });
                     deleteList.innerHTML += `
                         <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:11px;">
-                            <span>${escapeHtml(data[key].title)}</span>
+                            <span>${escapeHtml(postItem.title)}</span>
                             <button class="btn btn-danger" style="width:auto; padding:2px 8px; font-size:10px;" onclick="deletePost('${key}')">Delete</button>
                         </div>
                     `;
                 });
             }
+            document.getElementById('statTotalPosts').innerText = totalPostsCount;
+            document.getElementById('statTotalViews').innerText = totalViewsCount;
             renderFeed();
         });
 
@@ -696,7 +791,6 @@
             
             let filtered = allPostsData;
             
-            // Filter by Category or Saved Bookmarks
             if(currentFilter === 'Saved') {
                 const savedIds = JSON.parse(localStorage.getItem('prime_saved_posts') || '[]');
                 filtered = filtered.filter(p => savedIds.includes(p.id));
@@ -704,7 +798,6 @@
                 filtered = filtered.filter(p => p.category === currentFilter);
             }
 
-            // Filter by Search Query
             if(searchQuery !== '') {
                 filtered = filtered.filter(p => p.title.toLowerCase().includes(searchQuery) || p.description.toLowerCase().includes(searchQuery));
             }
@@ -717,12 +810,25 @@
             }
 
             const savedIds = JSON.parse(localStorage.getItem('prime_saved_posts') || '[]');
+            const ratedPosts = JSON.parse(localStorage.getItem('prime_rated_posts') || '{}');
 
             filtered.forEach(post => {
                 let timeStr = new Date(post.timestamp).toLocaleDateString() + ' ' + new Date(post.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 let imageHTML = post.image ? `<img src="${post.image}" class="post-img">` : '';
                 let isBookmarked = savedIds.includes(post.id);
                 let bookmarkIconClass = isBookmarked ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
+
+                // Average Rating Calculation
+                let avgRating = 0;
+                if(post.ratingCount && post.ratingCount > 0) {
+                    avgRating = (post.totalRating / post.ratingCount).toFixed(1);
+                }
+
+                let starsHtml = '';
+                for(let i=1; i<=5; i++) {
+                    let starClass = (i <= Math.round(avgRating)) ? "fa-solid fa-star rated" : "fa-regular fa-star";
+                    starsHtml += `<i class="${starClass}" onclick="ratePost('${post.id}', ${post.totalRating || 0}, ${post.ratingCount || 0}, ${i})" title="Rate ${i} Stars"></i>`;
+                }
 
                 container.innerHTML += `
                     <div class="app-card">
@@ -734,6 +840,13 @@
                             <span>${timeStr}</span>
                             <span><i class="fa-solid fa-eye"></i> ${post.views || 0} views</span>
                         </div>
+                        
+                        <!-- Star Rating Display & Interactive Box -->
+                        <div class="star-rating-box">
+                            <div>${starsHtml}</div>
+                            <span style="font-size:11px; font-weight:600; color:var(--text); margin-left:6px;">(${avgRating} / ${post.ratingCount || 0} ratings)</span>
+                        </div>
+
                         <div class="post-body">${escapeHtml(post.description)}</div>
                         ${imageHTML}
                         
@@ -741,6 +854,19 @@
                             <a href="javascript:void(0)" onclick="viewPostLink('${post.id}', '${escapeHtml(post.url)}', ${post.views || 0})" class="app-action-btn join-btn" style="text-decoration:none; display:inline-flex;">
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Link / Join Now
                             </a>
+                        </div>
+
+                        <!-- Social Share Buttons Row -->
+                        <div style="display: flex; gap: 6px; margin-bottom: 10px;">
+                            <button class="app-action-btn" style="background:#25d366; color:white; border:none; flex:1; justify-content:center;" onclick="shareOnSocial('whatsapp', '${escapeHtml(post.title)}', '${escapeHtml(post.url)}')">
+                                <i class="fa-brands fa-whatsapp"></i> Share
+                            </button>
+                            <button class="app-action-btn" style="background:#1877f2; color:white; border:none; flex:1; justify-content:center;" onclick="shareOnSocial('facebook', '${escapeHtml(post.title)}', '${escapeHtml(post.url)}')">
+                                <i class="fa-brands fa-facebook"></i> Share
+                            </button>
+                            <button class="app-action-btn" style="background:#229ed9; color:white; border:none; flex:1; justify-content:center;" onclick="shareOnSocial('telegram', '${escapeHtml(post.title)}', '${escapeHtml(post.url)}')">
+                                <i class="fa-brands fa-telegram"></i> Share
+                            </button>
                         </div>
 
                         <div class="post-action-bar">
